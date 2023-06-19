@@ -15,6 +15,7 @@ the-turk-nodp:
     settings:
       time_limit_label: Time Limit
       time_limit_text: If more than <b>xxx</b> minutes have passed since the last post in a discussion, the last poster will be forced to edit their post. Set this to <b>0</b> to disable the time limit.
+      allow_dp_no_replies_minutes_label: Minutes after which double posting is allowed even if user can still edit his own last message and none replied
 
   # Translations in this namespace are used by the forum user interface.
   forum:

@@ -39,5 +39,6 @@ return [
         }),
 
     (new Extend\Settings())
-        ->default('the-turk-nodp.time_limit', 1440),
+        ->default('the-turk-nodp.time_limit', 1440)
+        ->default('the-turk-nodp.allow_dp_no_replies_minutes', 0),
 ];

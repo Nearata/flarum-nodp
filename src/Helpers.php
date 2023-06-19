@@ -17,7 +17,7 @@ class Helpers
         if ($actor->can('doublePost', $discussion)) return true;
 
         /**
-         * @var Post
+         * @var \Flarum\Post\CommentPost
          */
         $lastPost = $discussion->posts()
             ->where('type', 'comment')
@@ -25,6 +25,10 @@ class Helpers
             ->first();
 
         if ($actor->id !== $lastPost->user_id) return true;
+
+        $allowDpNoRepliesMinutes = (int) $settings->get('the-turk-nodp.allow_dp_no_replies_minutes');
+
+        if ($allowDpNoRepliesMinutes !== 0 && $lastPost->created_at->addMinutes($allowDpNoRepliesMinutes)->isPast()) return true;
 
         if ($actor->cannot('edit', $lastPost)) return true;
 
