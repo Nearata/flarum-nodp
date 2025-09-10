@@ -17,5 +17,5 @@ https://vimeo.com/569607608
 ## Installation
 
 ```bash
-composer require Nearata/flarum-nodp
+composer require nearata/flarum-nodp
 ```
