@@ -1,22 +1,12 @@
 <?php
 
-/*
- * This file is part of the-turk/flarum-nodp.
- *
- * Copyright (c) 2021 Hasan Özbey
- *
- * LICENSE: For the full copyright and license information,
- * please view the LICENSE file that was distributed
- * with this source code.
- */
-
-namespace TheTurk\NoDP;
+namespace Nearata\NoDP;
 
 use Flarum\Api\Serializer\DiscussionSerializer;
 use Flarum\Extend;
 use Flarum\Discussion\Discussion;
 use Flarum\Post\Event\Saving as PostSaving;
-use TheTurk\NoDP\Listener;
+use Nearata\NoDP\Listener;
 
 return [
     (new Extend\Frontend('forum'))
@@ -39,5 +29,5 @@ return [
         }),
 
     (new Extend\Settings())
-        ->default('the-turk-nodp.time_limit', 1440),
+        ->default('nearata-nodp.time_limit', 1440),
 ];

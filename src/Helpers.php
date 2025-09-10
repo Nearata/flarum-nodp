@@ -1,6 +1,6 @@
 <?php
 
-namespace TheTurk\NoDP;
+namespace Nearata\NoDP;
 
 use Flarum\Discussion\Discussion;
 use Flarum\User\User;
@@ -28,7 +28,7 @@ class Helpers
 
         if ($actor->cannot('edit', $lastPost)) return true;
 
-        $timeLimit = (int) $settings->get('the-turk-nodp.time_limit');
+        $timeLimit = (int) $settings->get('nearata-nodp.time_limit');
 
         if ($timeLimit === 0) return false;
 

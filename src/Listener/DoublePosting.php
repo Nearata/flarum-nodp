@@ -1,10 +1,10 @@
 <?php
 
-namespace TheTurk\NoDP\Listener;
+namespace Nearata\NoDP\Listener;
 
 use Flarum\Post\Event\Saving as PostSaving;
 use Flarum\User\Exception\PermissionDeniedException;
-use TheTurk\NoDP\Helpers;
+use Nearata\NoDP\Helpers;
 
 class DoublePosting
 {
