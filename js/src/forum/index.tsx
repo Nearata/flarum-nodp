@@ -1,26 +1,26 @@
 import Alert from "flarum/common/components/Alert";
 import { extend } from "flarum/common/extend";
-import Model from "flarum/common/Model";
-import Discussion from "flarum/common/models/Discussion";
 import app from "flarum/forum/app";
 import ComposerBody from "flarum/forum/components/ComposerBody";
 import EditPostComposer from "flarum/forum/components/EditPostComposer";
+import type PostStreamState from "flarum/forum/states/PostStreamState";
 import DiscussionControls from "flarum/forum/utils/DiscussionControls";
+import { forumTranslator as trans } from "./helpers/trans";
+
+export { default as extend } from "./extend";
 
 app.initializers.add(
 	"nearata-nodp",
 	() => {
-		Discussion.prototype.canDoublePost = Model.attribute("canDoublePost");
-
 		// Add a warning message.
 		extend(ComposerBody.prototype, "headerItems", function (items) {
-			if (!this.attrs.nodp) return;
+			if (!this.attrs.nodp) {
+				return;
+			}
 
-			const title = app.translator.trans(
-				"nearata-nodp.forum.composer_edit.double_posting_warning_title",
-			);
-			const description = app.translator.trans(
-				"nearata-nodp.forum.composer_edit.double_posting_warning_description",
+			const title = trans("composer_edit.double_posting_warning_title");
+			const description = trans(
+				"composer_edit.double_posting_warning_description",
 			);
 
 			items.add(
@@ -35,11 +35,15 @@ app.initializers.add(
 		extend(DiscussionControls, "replyAction", () => {
 			const user = app.session.user;
 
-			if (!user) return;
+			if (!user) {
+				return;
+			}
 
-			const stream = app.current.get("stream");
+			const stream: PostStreamState = app.current.get("stream");
 
-			if (stream.discussion.canDoublePost()) return;
+			if (stream.discussion.canDoublePost()) {
+				return;
+			}
 
 			const posts = stream.posts().filter((post) => {
 				return (
@@ -47,7 +51,9 @@ app.initializers.add(
 				);
 			});
 
-			if (!posts.length) return;
+			if (!posts.length) {
+				return;
+			}
 
 			// last post
 			const post = posts[posts.length - 1];
@@ -66,9 +72,7 @@ app.initializers.add(
 				app.alerts.show(
 					Alert,
 					{ type: "error" },
-					app.translator.trans(
-						"nearata-nodp.forum.discussion.cannot_reply_alert_message",
-					),
+					trans("discussion.cannot_reply_alert_message"),
 				);
 				app.composer.close();
 			}

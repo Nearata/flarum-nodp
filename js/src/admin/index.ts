@@ -1,4 +1,5 @@
 import app from "flarum/admin/app";
+import { adminTranslator as trans } from "./helpers/trans";
 
 app.initializers.add("nearata-nodp", () => {
 	app.extensionData
@@ -6,17 +7,13 @@ app.initializers.add("nearata-nodp", () => {
 		.registerSetting({
 			setting: "nearata-nodp.time_limit",
 			type: "number",
-			label: app.translator.trans(
-				"nearata-nodp.admin.settings.time_limit_label",
-			),
-			help: app.translator.trans("nearata-nodp.admin.settings.time_limit_text"),
+			label: trans("settings.time_limit_label"),
+			help: trans("settings.time_limit_text"),
 		})
 		.registerPermission(
 			{
 				icon: "far fa-clone",
-				label: app.translator.trans(
-					"nearata-nodp.admin.permissions.double_posting_label",
-				),
+				label: trans("permissions.double_posting_label"),
 				permission: "discussion.doublePost",
 			},
 			"reply",

@@ -14,23 +14,31 @@ class Helpers
          */
         $settings = resolve('flarum.settings');
 
-        if ($actor->can('doublePost', $discussion)) return true;
+        if ($actor->can('doublePost', $discussion)) {
+            return true;
+        }
 
         /**
-         * @var Post
+         * @var \Flarum\Post\Post
          */
         $lastPost = $discussion->posts()
             ->where('type', 'comment')
             ->latest()
             ->first();
 
-        if ($actor->id !== $lastPost->user_id) return true;
+        if ($actor->id !== $lastPost->user_id) {
+            return true;
+        }
 
-        if ($actor->cannot('edit', $lastPost)) return true;
+        if ($actor->cannot('edit', $lastPost)) {
+            return true;
+        }
 
         $timeLimit = (int) $settings->get('nearata-nodp.time_limit');
 
-        if ($timeLimit === 0) return false;
+        if ($timeLimit === 0) {
+            return false;
+        }
 
         return $lastPost->created_at->addMinutes($timeLimit)->isPast();
     }

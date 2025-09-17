@@ -3,10 +3,10 @@
 namespace Nearata\NoDP;
 
 use Flarum\Api\Serializer\DiscussionSerializer;
-use Flarum\Extend;
 use Flarum\Discussion\Discussion;
-use Flarum\Post\Event\Saving as PostSaving;
-use Nearata\NoDP\Listener;
+use Flarum\Extend;
+use Flarum\Post\Event\Saving as PostSavingEvent;
+use Nearata\NoDP\Listeners\DoublePostingListener;
 
 return [
     (new Extend\Frontend('forum'))
@@ -18,8 +18,8 @@ return [
 
     (new Extend\Locales(__DIR__.'/locale')),
 
-    (new Extend\Event())
-        ->listen(PostSaving::class, Listener\DoublePosting::class),
+    (new Extend\Event)
+        ->listen(PostSavingEvent::class, DoublePostingListener::class),
 
     (new Extend\ApiSerializer(DiscussionSerializer::class))
         ->attributes(function (DiscussionSerializer $serializer, Discussion $discussion, array $attributes) {
@@ -28,6 +28,6 @@ return [
             return $attributes;
         }),
 
-    (new Extend\Settings())
+    (new Extend\Settings)
         ->default('nearata-nodp.time_limit', 1440),
 ];
