@@ -6,7 +6,7 @@ use Flarum\Testing\integration\TestCase;
 use Flarum\Extend;
 use Flarum\Group\Group;
 
-class SomeTest extends TestCase
+class Test extends TestCase
 {
     use RetrievesAuthorizedUsers;
 
