@@ -29,7 +29,8 @@
     },
     "require-dev": {
         "flarum/phpstan": "*",
-        "laravel/pint": "*"
+        "laravel/pint": "*",
+        "flarum/testing": "^1.8"
     },
     "autoload": {
         "psr-4": {
@@ -53,6 +54,9 @@
     "scripts": {
         "analyse:phpstan": "phpstan analyse",
         "clear-cache:phpstan": "phpstan clear-result-cache",
-        "format": "pint --dirty ."
+        "format": "pint --dirty .",
+        "test": ["@test:integration"],
+        "test:integration": "phpunit -c tests/phpunit.integration.xml",
+        "test:setup": "@php tests/setup.php"
     }
 }
